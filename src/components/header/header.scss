@@ -1,0 +1,14 @@
+.header{
+    display: flex;
+    background-color: #203040;
+    height: 60px;
+    align-items: center;
+    
+    a{
+        color: white;
+        padding-left: 10px;
+        &:hover{
+            color: #ff8000;
+        }
+    }
+}

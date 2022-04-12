@@ -1,8 +1,9 @@
+import Cart from '../../components/cartItem/Cart';
 import Product from '../../components/product/Product';
 import './product-sidebar.scss'
 
 
-const ProductSideBar = ({items}) => {
+const ProductSideBar = ({items, addToCart, cartItems, removeItem}) => {
     return ( 
         <div className='container'>
             <div className="main">
@@ -10,14 +11,14 @@ const ProductSideBar = ({items}) => {
                     {
                         items.map((item) => {
                             return(
-                                <Product key={item._id} item={item}/>
+                                <Product addToCart={addToCart} key={item._id} item={item}/>
                             )
                         })
                     }
                 </ul>
             </div>
             <div className="sidebar">
-                Cart Items
+                <Cart removeItem={removeItem} cartItems={cartItems}/>
             </div>
         </div>
      );

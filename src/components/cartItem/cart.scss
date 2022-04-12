@@ -1,0 +1,55 @@
+@mixin button {
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.cart{
+    padding: 10px;
+    display: flex;
+    .cart-items{
+        padding: 0;
+        width: 100%;
+        list-style: none;
+        img{
+            width: 100px;
+            display: block;
+            margin: auto;
+        }
+        li{
+            display: flex;
+            div{
+                padding: 5px;
+                &:last-child{
+                    flex: 1;
+                }
+            }
+            .button{
+                @include button();
+            }
+        }
+        
+    }
+    .total{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        div{
+            padding-top: 5px;
+            flex: 1
+        }
+        .button{
+            @include button();
+            background-color: #ffc000;
+            flex: 1;
+            font-size: 1rem;
+        }
+    }
+}
+
+.cat-header{
+    border-bottom: 1px solid #c0c0c0;
+}

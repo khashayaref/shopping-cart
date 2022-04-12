@@ -9,9 +9,9 @@ function App() {
   const [products, setProducts] = useState(data.products)
   const [size, setSize] = useState("")
   const [sort, setSort] = useState("")
+  const [cartItems, setCartItems] = useState([])
 
   const sizeProductsHandler = (e) => {
-    console.log(e.target.value)
     if(e.target.value === ''){
       setSize(e.target.value)
       setProducts(data.products)
@@ -22,7 +22,6 @@ function App() {
   }
 
   const sortProductsHandler = (e) => {
-    console.log(e.target.value)
     const sort = e.target.value
     setProducts(products.slice().sort((a, b) => (
       sort === 'lowest' ? 
@@ -34,13 +33,35 @@ function App() {
     )))
   }
 
+  const addToCartHandler = (product) => {
+    const itemProducts = cartItems.slice()
+    let alreadyInCart = false
+    itemProducts.forEach(item => {
+      if(item._id === product._id){
+        item.count += 1
+        alreadyInCart = true
+        setCartItems(itemProducts)
+      }
+    })
+    if(!alreadyInCart){
+      itemProducts.push({...product, count: 1})
+      setCartItems(itemProducts)
+    }
+  }
+
+  const removeItemHandler = (cartItem) => {
+    const allCartItems = cartItems.slice()
+    setCartItems(allCartItems.filter((item) => item._id !== cartItem._id))
+  }
+
   return (
     <div className="App">
       <Header/>
       <main>
         <Filter count={products.length} size={size} sort={sort} 
         sizeProducts={sizeProductsHandler} sortProducts={sortProductsHandler}/>
-        <ProductSideBar items={products}/>
+        <ProductSideBar cartItems={cartItems} addToCart={addToCartHandler}
+        removeItem={removeItemHandler} items={products}/>
       </main>
       <footer>
         All Right Is Reserved.

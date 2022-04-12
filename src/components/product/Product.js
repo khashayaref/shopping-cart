@@ -2,7 +2,7 @@ import formatCurrency from '../../utils';
 import './product.scss'
 
 
-const Product = ({item}) => {
+const Product = ({item, addToCart}) => {
     return ( 
         <div className='product'>
             <li>
@@ -15,7 +15,7 @@ const Product = ({item}) => {
                         <div>
                             {formatCurrency(item.price)}
                         </div>
-                        <button className='button primary'>
+                        <button onClick={() => addToCart(item)} className='button primary'>
                             Add To Cart
                         </button>
                     </div>

@@ -5,10 +5,16 @@
     border-radius: 3px;
     text-align: center;
 }
+@mixin buttonPrimary {
+    background-color: #ffc000;
+    flex: 1;
+    font-size: 1rem;
+}
 
 .cart{
     padding: 10px;
     display: flex;
+    flex-direction: column;
     .cart-items{
         padding: 0;
         width: 100%;
@@ -43,9 +49,32 @@
         }
         .button{
             @include button();
-            background-color: #ffc000;
-            flex: 1;
-            font-size: 1rem;
+            @include buttonPrimary();
+        }
+    }
+    form{
+        width: 100%;
+        .form-container{
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            li{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                label{
+                    margin-right: 10px;
+                }
+                input{
+                    padding: 10px;
+                    border: 1px solid #c0c0c0;
+                    border-radius: 5px;
+                }
+            }
+            .button{
+                @include button();
+                @include buttonPrimary();
+            }
         }
     }
 }

@@ -1,8 +1,24 @@
 import './cart.scss'
 import formatCurrency from '../../utils';
+import { useState } from 'react';
 
 
-const Cart = ({cartItems, removeItem}) => {
+const Cart = ({cartItems, removeItem, createOrder}) => {
+    const [showForm, setShowForm] = useState(false)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+
+    const createOrderHandler = (e) => {
+        e.preventDefault()
+        const order = {
+            name : name,
+            email : email,
+            address : address
+        }
+        createOrder(order)
+    }
+
     return ( 
         <div>
             {cartItems.length === 0 ? <div className='cart cart-header'>Cart Is Empty </div>
@@ -37,8 +53,36 @@ const Cart = ({cartItems, removeItem}) => {
                                 Total: {' '}
                                 {formatCurrency(cartItems.reduce((a, c) => a + (c.price * c.count), 0))}
                             </div>
-                            <button className='button primary'>Proceed</button>
+                            <button onClick={() => setShowForm(true)} className='button primary'>Proceed</button>
                         </div>
+                        {
+                            showForm && (
+                                <div className='cart'>
+                                    <form onSubmit={(e) => createOrderHandler(e)}>
+                                        <ul className="form-container">
+                                            <li>
+                                                <label htmlFor="">Email:</label>
+                                                <input type="email" placeholder='Please Enter Your Email' required 
+                                                onChange={(e) => setEmail(e.target.value)} value={email} name='email'/>
+                                            </li>
+                                            <li>
+                                                <label htmlFor="">Name:</label>
+                                                <input type="text" placeholder='Please Enter Your Name' required 
+                                                onChange={(e) => setName(e.target.value)} value={name} name='name'/>
+                                            </li>
+                                            <li>
+                                                <label htmlFor="">Address:</label>
+                                                <input type="text" placeholder='Please Enter Your Address' required 
+                                                onChange={(e) => setAddress(e.target.value)} value={address} name='address'/>
+                                            </li>
+                                            <li>
+                                                <button className='button primary' type='submit'>Checkout</button>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                )
+                        }
                     </div>
                 }
             </div>

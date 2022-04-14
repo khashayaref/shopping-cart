@@ -1,3 +1,16 @@
+@mixin button {
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    text-align: center;
+}
+@mixin buttonPrimary {
+    background-color: #ffc000;
+    flex: 1;
+    font-size: 1rem;
+}
+
 .product{
     display: flex;
     justify-content: center;
@@ -38,6 +51,40 @@
                 font-size: 1.3rem;
                 font-weight: bold;
             }
+        }
+    }
+}
+
+.ReactModal__Content .css-1x3gnuq:first-child{
+    position: absolute;
+    right: 10px;
+    z-index: 100;
+}
+
+.product-details{
+    display: flex;
+    flex-direction: column;
+    img{
+        display: block;
+        margin: auto;
+        max-height: 255px;
+        max-width: 255px;
+    }
+    .product-details-description{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .product-price{
+        display: flex;
+        width: 100%;
+
+        div{
+            flex: 1;
+        }
+        button{
+            @include button();
+            @include buttonPrimary();
         }
     }
 }

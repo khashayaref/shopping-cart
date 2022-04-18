@@ -1,7 +1,14 @@
 import './filter.scss'
+import {filterProduct, sortProducts} from '../../slicers/producSlicer'
+import {useDispatch, useSelector} from 'react-redux'
 
 
-const Filter = ({count, size, sort, sizeProducts, sortProducts}) => {
+
+const Filter = ({count}) => {
+    const dispatch = useDispatch()
+    const size = useSelector(state => state.products.size)
+    const sort = useSelector(state => state.products.sort)
+    
     return ( 
         <div className='filter'>
             <div className='filter-result'>
@@ -9,7 +16,7 @@ const Filter = ({count, size, sort, sizeProducts, sortProducts}) => {
             </div>
             <div className='filter-sort'>
                 Order 
-                <select value={sort} onChange={(e) => sortProducts(e)}>
+                <select value={sort} onChange={(e) => dispatch(sortProducts(e.target.value))}>
                     <option value="">latest</option>
                     <option value="lowest">lowest</option>
                     <option value="highest">Highest</option>
@@ -17,7 +24,7 @@ const Filter = ({count, size, sort, sizeProducts, sortProducts}) => {
             </div>
             <div className="filter-size">
                 Filter 
-                <select value={size} onChange={(e) => sizeProducts(e)}>
+                <select value={size} onChange={(e) => dispatch(filterProduct(e.target.value))}>
                     <option value="">All</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>

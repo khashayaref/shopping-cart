@@ -2,11 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const shortId = require('shortid')
+const cors = require('cors')
 
 const app = express()
 app.use(bodyParser.json())
+app.use(cors())
 
-mongoose.connect('mongodb://localhost/react-shopping-cart-db')
+// mongodb://localhost/react-shopping-cart-db
+// mongodb+srv://khashayar:5100056053@shoppingcart.kxrb4.mongodb.net/test
+mongoose.connect('mongodb+srv://khashayar:5100056053@shoppingcart.kxrb4.mongodb.net/shopping_cart_test')
 
 const Product = mongoose.model('products', new mongoose.Schema({
     _id: {type: String, default: shortId.generate},

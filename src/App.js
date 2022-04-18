@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import Filter from './components/filter/Filter';
 import Header from './components/header/Header';
 import ProductSideBar from './containers/product-sidebar/ProductSideBar';
 import data from './data.json'
+import {useSelector, useDispatch} from 'react-redux'
+import {getProducts} from './slicers/producSlicer'
+
 
 function App() {
-  const [products, setProducts] = useState(data.products)
+  const [products, setProducts] = useState([])
   const [size, setSize] = useState("")
   const [sort, setSort] = useState("")
   const [cartItems, setCartItems] = useState(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [])
+  
+  const dispatch = useDispatch()
+  // const allProducts = useSelector((state) => state.products.products) 
+  // setProducts(allProducts)
+
+  useEffect(() => {
+    dispatch(getProducts())
+  }, [])
 
   const sizeProductsHandler = (e) => {
     if(e.target.value === ''){
@@ -61,18 +72,20 @@ function App() {
   }
 
   return (
-    <div className="App"> 
-      <Header/>
-      <main>
-        <Filter count={products.length} size={size} sort={sort} 
-        sizeProducts={sizeProductsHandler} sortProducts={sortProductsHandler}/>
-        <ProductSideBar cartItems={cartItems} addToCart={addToCartHandler}
-        removeItem={removeItemHandler} items={products} createOrder={createOrder}/>
-      </main>
-      <footer>
-        All Right Is Reserved.
-      </footer>
-    </div>
+    
+      <div className="App"> 
+        <Header/>
+        <main>
+          <Filter count={products.length} size={size} sort={sort} 
+          sizeProducts={sizeProductsHandler} sortProducts={sortProductsHandler}/>
+          <ProductSideBar cartItems={cartItems} addToCart={addToCartHandler}
+          removeItem={removeItemHandler} items={products} createOrder={createOrder}/>
+        </main>
+        <footer>
+          All Right Is Reserved.
+        </footer>
+      </div>
+    
   );
 }
 

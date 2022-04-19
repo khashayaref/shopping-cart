@@ -3,7 +3,7 @@ import Product from '../../components/product/Product';
 import './product-sidebar.scss'
 
 
-const ProductSideBar = ({items, addToCart, cartItems, removeItem, createOrder}) => {
+const ProductSideBar = ({items, createOrder}) => {
     return ( 
         <div className='container'>
             <div className="main">
@@ -13,7 +13,7 @@ const ProductSideBar = ({items, addToCart, cartItems, removeItem, createOrder}) 
                         {
                             items.map((item) => {
                                 return(
-                                    <Product addToCart={addToCart} key={item._id} item={item}/>
+                                    <Product key={item._id} item={item}/>
                                 )
                             })
                         }
@@ -21,7 +21,7 @@ const ProductSideBar = ({items, addToCart, cartItems, removeItem, createOrder}) 
                 }
             </div>
             <div className="sidebar">
-                <Cart createOrder={createOrder} removeItem={removeItem} cartItems={cartItems}/>
+                <Cart createOrder={createOrder}/>
             </div>
         </div>
      );

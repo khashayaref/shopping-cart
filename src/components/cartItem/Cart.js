@@ -2,13 +2,18 @@ import './cart.scss'
 import formatCurrency from '../../utils';
 import { useState } from 'react';
 import {Fade} from 'react-awesome-reveal'
+import {removeCartItem, } from '../../slicers/cartSlicer'
+import {useDispatch, useSelector} from 'react-redux'
 
 
-const Cart = ({cartItems, removeItem, createOrder}) => {
+const Cart = ({ createOrder}) => {
     const [showForm, setShowForm] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
+
+    const cartItems = useSelector((state) => state.carts.cartItems)
+    const dispatch = useDispatch()
 
     const createOrderHandler = (e) => {
         e.preventDefault()
@@ -19,6 +24,7 @@ const Cart = ({cartItems, removeItem, createOrder}) => {
         }
         createOrder(order)
     }
+
 
     return ( 
         <div>
@@ -40,7 +46,7 @@ const Cart = ({cartItems, removeItem, createOrder}) => {
                                             <div>{item.title}</div>
                                             <div className='right'>
                                                 {formatCurrency(item.price)} x {item.count} {" "}
-                                                <button className='button' onClick={() => removeItem(item)}>Remove</button>
+                                                <button className='button' onClick={() => dispatch((removeCartItem(item)))}>Remove</button>
                                             </div>
                                         </div>
                                     </li>

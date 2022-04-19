@@ -3,6 +3,8 @@ import './product.scss'
 import {Fade, Zoom} from 'react-awesome-reveal'
 import Modal from 'react-modal'
 import { useState } from 'react';
+import {addCartItem, } from '../../slicers/cartSlicer'
+import {useDispatch, useSelector} from 'react-redux'
 
 const customStyle = {
     content : {
@@ -16,6 +18,7 @@ const customStyle = {
 Modal.setAppElement('#root');
 const Product = ({item, addToCart}) => {
     const [openModal, setOpenModal] = useState(false)
+    const dispatch = useDispatch()
     return ( 
         <>
             <Fade direction='up' cascade={true}>
@@ -30,7 +33,7 @@ const Product = ({item, addToCart}) => {
                                 <div>
                                     {formatCurrency(item.price)}
                                 </div>
-                                <button onClick={() => addToCart(item)} className='button'>
+                                <button onClick={() => dispatch(addCartItem(item))} className='button'>
                                     Add To Cart
                                 </button>
                             </div>

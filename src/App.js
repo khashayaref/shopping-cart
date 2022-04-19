@@ -3,7 +3,6 @@ import './App.scss';
 import Filter from './components/filter/Filter';
 import Header from './components/header/Header';
 import ProductSideBar from './containers/product-sidebar/ProductSideBar';
-import data from './data.json'
 import {useSelector, useDispatch} from 'react-redux'
 import {getProducts, } from './slicers/producSlicer'
 

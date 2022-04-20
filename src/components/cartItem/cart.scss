@@ -82,3 +82,32 @@
 .cat-header{
     border-bottom: 1px solid #c0c0c0;
 }
+
+.close-modal{
+
+}
+.order-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    ul{
+        padding: 0;
+    }
+    li{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        div{
+            padding: 10px;
+        }
+        .items{
+            text-align: right;
+            padding: 0;
+        }
+    }
+    .success-message{
+        color: green;
+    }
+}

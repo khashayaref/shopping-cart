@@ -1,7 +1,11 @@
 # Shopping React App
 
-## First Clone the project  
-## Then Run The Following Code In Your Terminal  
+### First Clone the project  
+### Then Type In Your Terminal
+```
+cd shopping-cart
+```
+### And After That 
 ```
 npm start
 ```

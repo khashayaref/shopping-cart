@@ -16,17 +16,13 @@ function App() {
     dispatch(getProducts())
   }, [])
 
-  const createOrder = (order) => {
-    alert("Need to save the order for " + order.name) 
-  }
-
   return (
     
       <div className="App"> 
         <Header/>
         <main>
           <Filter count={allProducts.length}/>
-          <ProductSideBar items={allProducts} createOrder={createOrder}/>
+          <ProductSideBar items={allProducts}/>
         </main>
         <footer>
           All Right Is Reserved.

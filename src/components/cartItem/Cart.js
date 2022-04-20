@@ -4,25 +4,43 @@ import { useState } from 'react';
 import {Fade} from 'react-awesome-reveal'
 import {removeCartItem, } from '../../slicers/cartSlicer'
 import {useDispatch, useSelector} from 'react-redux'
+import {createOrder, } from '../../slicers/orderSlicer'
+import Modal from 'react-modal'
+import { Zoom } from 'react-awesome-reveal';
 
 
-const Cart = ({ createOrder}) => {
+const customStyle = {
+    content : {
+        left: '33%',
+        width: '600px',
+        height: '500px',
+        position: "relative",
+    },
+}
+
+const Cart = ({ }) => {
     const [showForm, setShowForm] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
+    const [showModal, setShowModal] = useState(false)
 
     const cartItems = useSelector((state) => state.carts.cartItems)
+    const order = useSelector(state => state.orders.order)
+    const status = useSelector(state => state.orders.status)
     const dispatch = useDispatch()
 
     const createOrderHandler = (e) => {
         e.preventDefault()
-        const order = {
+        const orderItem = {
             name : name,
             email : email,
-            address : address
+            address : address,
+            total: cartItems.reduce((first, second) => first + (second.price * second.count), 0),
+            cartItems: cartItems
         }
-        createOrder(order)
+        dispatch(createOrder(orderItem))
+        setShowModal(true)
     }
 
 
@@ -31,6 +49,46 @@ const Cart = ({ createOrder}) => {
             {cartItems.length === 0 ? <div className='cart cart-header'>Cart Is Empty </div>
                  :
                  <div className='cart cart-header'> Yout Have {cartItems.length} Items In Your Cart</div> 
+            }
+
+            {
+                (status === 'success') && (<Modal isOpen={showModal} onRequestClose={() => setShowModal(false)} style={customStyle}>
+                            <Zoom>
+                                <button className='close-modal' onClick={() => setShowModal(false)}>X</button>
+                                <div className="order-details">
+                                    <h3 className="success-message">Your Order Has Been Placed Successfully</h3>
+                                    <h2>Order {order._id}</h2>
+                                    <ul>
+                                        <li>
+                                            <div>Name:</div>
+                                            <div>{order.name}</div>
+                                        </li>
+                                        <li>
+                                            <div>Email:</div>
+                                            <div>{order.email}</div>
+                                        </li>
+                                        <li>
+                                            <div>Address:</div>
+                                            <div>{order.address}</div>
+                                        </li>
+                                        <li>
+                                            <div>Date:</div>
+                                            <div>{order.createdAt}</div>
+                                        </li>
+                                        <li>
+                                            <div>Total:</div>
+                                            <div>{formatCurrency(order.total)}</div>
+                                        </li>
+                                        <li>
+                                            <div>CartItems:</div>
+                                            <div className='items'>{order.cartItems.map(item => (
+                                                <div>{item.count} {' x '} {item.title}</div>
+                                            ))}</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Zoom>
+                        </Modal>)
             }
             <div>
                 <div className="cart">
